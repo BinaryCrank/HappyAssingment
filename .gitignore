@@ -1,0 +1,29 @@
+# Node
+node_modules/
+dist/
+.env
+
+# Python
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.Python
+env/
+venv/
+pip-log.txt
+pip-delete-this-directory.txt
+.tox/
+.coverage
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+
+# Database
+backend/crm.db
+
+# OS
+.DS_Store
+Thumbs.db
