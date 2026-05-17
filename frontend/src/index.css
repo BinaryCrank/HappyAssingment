@@ -16,18 +16,25 @@
   body {
     background-color: var(--bg-main);
     color: var(--text-primary);
-    @apply selection:bg-cyan-500/30 selection:text-cyan-200;
     background-image:
       radial-gradient(at 0% 0%, rgba(6, 182, 212, 0.05) 0px, transparent 50%),
       radial-gradient(at 100% 100%, rgba(14, 165, 233, 0.05) 0px, transparent 50%);
+  }
+
+  ::selection {
+    background-color: rgba(6, 182, 212, 0.3);
+    color: #a5f3fc;
   }
 }
 
 @layer components {
   .btn-primary {
     background-color: var(--brand-primary);
-    color: #020617; /* Dark slate text for perfect contrast on high-visibility primary button */
-    @apply font-semibold py-2 px-4 rounded-lg transition-all duration-300 shadow-lg active:scale-95 disabled:opacity-50 disabled:pointer-events-none;
+    color: #020617;
+    font-weight: 600;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    transition: all 300ms;
     box-shadow: 0 10px 15px -3px rgba(6, 182, 212, 0.25);
   }
 
@@ -35,22 +42,53 @@
     filter: brightness(1.1);
   }
 
+  .btn-primary:active {
+    transform: scale(0.95);
+  }
+
+  .btn-primary:disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
   .btn-secondary {
     background-color: var(--bg-card);
     color: var(--text-primary);
     border: 1px solid var(--border-card);
-    @apply font-medium py-2 px-4 rounded-lg transition-all duration-300 backdrop-blur-sm active:scale-95 disabled:opacity-50;
+    font-weight: 500;
+    padding: 0.5rem 1rem;
+    border-radius: 0.5rem;
+    transition: all 300ms;
+    backdrop-filter: blur(4px);
   }
 
   .btn-secondary:hover {
     background-color: var(--border-card);
   }
 
+  .btn-secondary:active {
+    transform: scale(0.95);
+  }
+
+  .btn-secondary:disabled {
+    opacity: 0.5;
+    pointer-events: none;
+  }
+
   .input-field {
+    width: 100%;
     background-color: var(--bg-card);
     border: 1px solid var(--border-card);
     color: var(--text-primary);
-    @apply w-full rounded-lg py-2 px-3 placeholder-slate-500 focus:outline-none transition-all duration-300 backdrop-blur-sm;
+    border-radius: 0.5rem;
+    padding: 0.5rem 0.75rem;
+    transition: all 300ms;
+    backdrop-filter: blur(4px);
+    outline: none;
+  }
+
+  .input-field::placeholder {
+    color: #64748b;
   }
 
   .input-field:focus {
@@ -61,12 +99,24 @@
   .card {
     background-color: var(--bg-card);
     border: 1px solid var(--border-card);
-    @apply backdrop-blur-md rounded-2xl p-6 shadow-2xl transition-all duration-500 hover:border-slate-700/60;
+    backdrop-filter: blur(12px);
+    border-radius: 1rem;
+    padding: 1.5rem;
+    box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+    transition: all 500ms;
+  }
+
+  .card:hover {
+    border-color: rgba(51, 65, 85, 0.6);
   }
 
   .glass-nav {
     background-color: rgba(15, 23, 42, 0.7);
-    @apply backdrop-blur-xl border-b border-slate-800/50 sticky top-0 z-50;
+    backdrop-filter: blur(24px);
+    border-bottom: 1px solid rgba(30, 41, 59, 0.5);
+    position: sticky;
+    top: 0;
+    z-index: 50;
   }
 }
 
@@ -76,9 +126,14 @@
 }
 
 ::-webkit-scrollbar-track {
-  @apply bg-slate-950;
+  background-color: #020617;
 }
 
 ::-webkit-scrollbar-thumb {
-  @apply bg-slate-800 rounded-full hover:bg-slate-700 transition-colors;
+  background-color: #1e293b;
+  border-radius: 9999px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background-color: #334155;
 }
