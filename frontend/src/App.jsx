@@ -9,7 +9,7 @@ function App() {
     <Router>
       <div className="min-h-screen bg-slate-950 text-slate-200">
         <Navbar />
-        <main className="container mx-auto px-4 py-8 max-w-6xl">
+        <main className="container mx-auto px-4 pt-8 pb-24 max-w-6xl">
           <Routes>
             <Route path="/" element={<Home />} />
             <Route path="/create" element={<CreateTicket />} />
