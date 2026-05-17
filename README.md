@@ -25,7 +25,7 @@ A premium, full-stack CRM Ticketing System built for customer support teams to m
 
 ### Frontend
 *   **Framework:** React 18 (Vite-powered for instant HMR)
-*   **Styling:** Tailwind CSS, Custom CSS Variables (Glassmorphic variables)
+*   **Styling:** Tailwind CSS, Custom CSS Variables (Glassmorphic theme)
 *   **Icons:** Lucide React
 *   **Routing:** React Router v6
 
@@ -35,35 +35,16 @@ A premium, full-stack CRM Ticketing System built for customer support teams to m
 
 The SQL database contains two core tables mapped using a relational **One-to-Many** design:
 
-```mermaid
-erDiagram
-    TICKETS {
-        int id PK "Internal auto-incrementing ID"
-        string ticket_id UK "Unique support code (e.g. TCK-XXXX)"
-        string customer_name "Customer full name"
-        string customer_email "Customer email address"
-        string subject "Brief summary of the issue"
-        string description "Detailed explanation"
-        string status "Open | In Progress | Closed"
-        datetime created_at "Timestamp of creation"
-        datetime updated_at "Timestamp of last modification"
-    }
-    
-    NOTES {
-        int id PK "Internal auto-incrementing ID"
-        int ticket_id FK "Relational key to TICKETS.id"
-        string note_text "Content of the timeline note"
-        datetime created_at "Timestamp of creation"
-    }
+| Table | Description |
+|-------|-------------|
+| `tickets` | Stores customer support tickets with unique IDs, status, and timestamps |
+| `notes` | Stores internal timeline notes linked to a ticket via Foreign Key |
 
-    TICKETS ||--o{ NOTES : "has many notes"
-```
+A single ticket can have **many** notes — `TICKETS ||--o{ NOTES`.
 
 ---
 
 ## 🚀 Running Locally
-
-Follow these instructions to spin up the local development environment:
 
 ### Prerequisite Checklist
 *   Python 3.10+ installed
@@ -72,61 +53,45 @@ Follow these instructions to spin up the local development environment:
 ---
 
 ### Step 1: Run the Backend Server
-1. Navigate to the `backend` folder:
-   ```bash
-   cd backend
-   ```
-2. Create a virtual environment:
-   ```bash
-   python3 -m venv venv
-   ```
-3. Activate the environment:
-   * **macOS/Linux:**
-     ```bash
-     source venv/bin/activate
-     ```
-   * **Windows:**
-     ```bash
-     venv\Scripts\activate
-     ```
-4. Install all Python dependencies:
-   ```bash
-   pip install -r requirements.txt
-   ```
-5. Launch the FastAPI server:
-   ```bash
-   uvicorn main:app --reload
-   ```
-   *The backend will boot up locally at:* `http://localhost:8000`
+
+```bash
+cd backend
+python3 -m venv venv
+source venv/bin/activate        # macOS/Linux
+# OR: venv\Scripts\activate     # Windows
+pip install -r requirements.txt
+uvicorn main:app --reload
+```
+
+The API will be available at: `http://localhost:8000`
 
 ---
 
 ### Step 2: Run the Frontend Server
-1. Open a new terminal and navigate to the `frontend` folder:
-   ```bash
-   cd frontend
-   ```
-2. Install npm packages:
-   ```bash
-   npm install
-   ```
-3. Boot the React development server:
-   ```bash
-   npm run dev
-   ```
-   *Open your browser and navigate to:* `http://localhost:5173`
+
+```bash
+cd frontend
+npm install
+npm run dev
+```
+
+Open your browser at: `http://localhost:5173`
 
 ---
 
-## ☁️ Deployment Guidelines
+## ☁️ Deployment
 
-### 1. Backend (Railway or Render)
-*   **Environment:** Python
-*   **Root Directory:** `backend`
-*   **Build Command:** `pip install -r requirements.txt`
-*   **Start Command:** `uvicorn main:app --host 0.0.0.0 --port $PORT`
+### Backend (Railway or Render)
+| Setting | Value |
+|---------|-------|
+| Environment | Python |
+| Root Directory | `backend` |
+| Build Command | `pip install -r requirements.txt` |
+| Start Command | `uvicorn main:app --host 0.0.0.0 --port $PORT` |
 
-### 2. Frontend (Vercel)
-*   **Framework Preset:** Vite
-*   **Root Directory:** `frontend`
-*   **Environment Variables:** Add `VITE_API_URL` pointing to your deployed backend API URL (e.g., `https://your-backend.onrender.com/api/tickets`).
+### Frontend (Vercel)
+| Setting | Value |
+|---------|-------|
+| Framework Preset | Vite |
+| Root Directory | `frontend` |
+| Env Variable | `VITE_API_URL` = your deployed backend URL |
