@@ -1,4 +1,5 @@
-const API_BASE = import.meta.env.VITE_API_URL || '/api/tickets';
+// Ensure base URL never has a trailing slash for consistent concatenation
+const API_BASE = (import.meta.env.VITE_API_URL || '/api/tickets').replace(/\/$/, '');
 
 export const fetchTickets = async (status, search) => {
   const params = new URLSearchParams();
@@ -17,7 +18,7 @@ export const fetchTicket = async (ticketId) => {
 };
 
 export const createTicket = async (ticketData) => {
-  const response = await fetch(API_BASE, {
+  const response = await fetch(`${API_BASE}/`, {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(ticketData)
